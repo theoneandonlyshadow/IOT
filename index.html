@@ -2,244 +2,299 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bru</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bru</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 
 <body>
-    <h1>View in Full Screen (F11)</h1>
-    <button id="hideButton" onclick="hideContent()" style="position: absolute; top: 20px; right: 20px;">Hide All (Can be
-        used only once!<br> Reload to view again)</button>
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 1: Interface 4 LED's on Arduino Uno
-        </div>
-        <div class="content">
-            <pre><code>
-                const int ledPins[] = {2, 3, 4, 5};
-                int ledState = 0;
-                
-                void setup() {
-                  Serial.begin(9600);
-                  for (int i = 0; i < 4; i++) {
-                    pinMode(ledPins[i], OUTPUT);
-                  }
-                }
-                
-                void loop() {
-                  for (int i = 0; i < 4; i++) {
-                    digitalWrite(ledPins[i], HIGH);
-                    delay(100);
-                    digitalWrite(ledPins[i], LOW);
-                  }
-                  Serial.println("LEDs scrolled");
-                  delay(1000);
-                }
+  <h1>IOT Labsheets</h1>
+  <button id="hideButton" onclick="hideContent()" style="position: absolute; top: 20px; right: 20px;">Click <b>F11</b> and switch to Arduino IDE<br>(Reload to view again)</button>
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 2: Interface 1 LED on Arduino Uno
+    </div>
+    <div class="content">
+      <p>Interface 1 LED on Arduino Uno:</p>
+      <pre><code>
+              int ledPin = 13;
+              void setup() {
+                // Set the LED pin as output
+                pinMode(ledPin, OUTPUT);
+              }
+              void loop() {
+                // Turn the LED on (HIGH is the voltage level)
+                digitalWrite(ledPin, HIGH);
+                // Wait for a second
+                delay(1000);
+                // Turn the LED off by making the voltage LOW
+                digitalWrite(ledPin, LOW);
+                // Wait for a second
+                delay(1000);
+              }
             </code>
             </pre>
-        </div>
+      <p>Interface 3 LEDs on Arduino Uno:</p>
+      <pre><code>
+              int ledPin1=13;
+              int ledPin2=12;
+              int ledPin3=11;
+              void setup()
+              {
+                pinMode(ledPin1, OUTPUT);
+                pinMode(ledPin2, OUTPUT);
+                piniMode(ledPin3, OUTPUT);
+              }
+              void loop()
+              {
+                digitalWrite(ledPin1, HIGH);
+                digitalWrite(ledPin2, HIGH);
+                digitalWrite(ledPin3, HIGH);
+                delay(1000); // Wait for 1000 millisecond(s)
+                digitalWrite(ledPin1, LOW);
+                digitalWrite(ledPin2, LOW);
+                digitalWrite(ledPin3, LOW);
+                delay(1000); // Wait for 1000 millisecond(s)
+              }
+            </code></pre>
     </div>
+  </div>
 
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 2: Interface IR sensor on Arduino Uno
-        </div>
-        <div class="content">
-            <pre><code>const int irPin = 2;
-
-                void setup() {
-                  Serial.begin(9600);
-                  pinMode(irPin, INPUT);
-                }
-                
-                void loop() {
-                  int irState = digitalRead(irPin);
-                  if (irState == LOW) {
-                    Serial.println("Obstacle detected");
-                  } else {
-                    Serial.println("No obstacle");
-                  }
-                  delay(100);
-                }
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 3: Arduino program to implement blinking of alternate
+      leds and arduino program to implement to fade led
+    </div>
+    <div class="content">
+      <p>Alternate Blinking LED:</p>
+      <pre><code>
+              const int led1Pin = 9;
+              const int led2Pin = 10;
+              void setup() {
+                // Initialize the LED pins as outputs
+                pinMode(led1Pin, OUTPUT);
+                pinMode(led2Pin, OUTPUT);
+              }
+              void loop() {
+                // Turn LED 1 on and LED 2 off
+                digitalWrite(led1Pin, HIGH);
+                digitalWrite(led2Pin, LOW);
+                delay(1000); // Wait for 1 second
+                // Turn LED 1 off and LED 2 on
+                digitalWrite(led1Pin, LOW);
+                digitalWrite(led2Pin, HIGH);
+                delay(1000); // Wait for 1 second
+              }
             </code>
             </pre>
-        </div>
+      <p>Fade LED:</p>
+      <pre><code>
+              const int ledPin = 9; // LED connected to digital pin 9
+              int brightness = 0; // Variable to store the brightness level
+              int fadeAmount = 5; // Amount to change the brightness each time
+              void setup() {
+                // Initialize the LED pin as an output
+                pinMode(ledPin, OUTPUT);
+              }
+              void loop() {
+                // Set the LED brightness
+                analogWrite(ledPin, brightness);
+                // Change the brightness for the next iteration
+                brightness += fadeAmount;
+                // Reverse the direction of fading at the ends of the fade range
+                if (brightness <= 0 || brightness >= 255) {
+                  fadeAmount = -fadeAmount;
+                }
+                // Wait for a short period to see the fading effect
+                delay(30);
+              }
+            </code></pre>
     </div>
+  </div>
 
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 3: Interface PIR sensor on Arduino Uno
-        </div>
-        <div class="content">
-            <pre><code>
-                const int pirPin = 2;
-
-                void setup() {
-                  Serial.begin(9600);
-                  pinMode(pirPin, INPUT);
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 4: Arduino program to implement blinking of odd
+      and even LEDs
+    </div>
+    <div class="content">
+      <pre><code>
+              const int oddLedPins[] = {13, 11}; // Odd pins
+              const int evenLedPins[] = {12, 10}; // Even pins
+              // Define delay time
+              const int blinkDelay = 500; // Delay time for blinking (in milliseconds)
+              void setup() {
+                // Initialize LED pins as OUTPUT
+                for (int i = 0; i < 2; i++) {
+                pinMode(oddLedPins[i], OUTPUT);
+                pinMode(evenLedPins[i], OUTPUT);
+               }
+              }
+              void loop() {
+                // Blink odd LEDs
+                for (int i = 0; i < 2; i++) {
+                digitalWrite(oddLedPins[i], HIGH); // Turn LED on
+              }
+                delay(blinkDelay); // Wait for a while
+               for (int i = 0; i < 2; i++) {
+                digitalWrite(oddLedPins[i], LOW); // Turn LED off
                 }
-                
-                void loop() {
-                  int pirState = digitalRead(pirPin);
-                  if (pirState == HIGH) {
-                    Serial.println("Motion detected");
-                  } else {
-                    Serial.println("No motion");
+                delay(blinkDelay); // Wait for a while
+                // Blink even LEDs
+                for (int i = 0; i < 2; i++) {
+                  digitalWrite(evenLedPins[i], HIGH); // Turn LED on
+                }
+                delay(blinkDelay); // Wait for a while
+                  for (int i = 0; i < 2; i++) {
+                    digitalWrite(evenLedPins[i], LOW); // Turn LED off
                   }
-                  delay(100);
-                }
+                delay(blinkDelay); // Wait for a while
+              }
             </code>
             </pre>
-        </div>
     </div>
+  </div>
 
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 4: Interface Push button and LEDs on Arduino Uno
-        </div>
-        <div class="content">
-            <pre><code>const int ledPins[] = {2, 3, 4};
-                const int buttonPin = 5;
-                int buttonState = 0;
-                int ledState = 0;
-                
-                void setup() {
-                  Serial.begin(9600);
-                  for (int i = 0; i < 3; i++) {
-                    pinMode(ledPins[i], OUTPUT);
-                  }
-                  pinMode(buttonPin, INPUT);
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 5: Arduino program to Control an LED using
+      push button
+    </div>
+    <div class="content">
+      <pre><code>
+              int pushButtonState = 0;
+              void setup() {
+                // Configure pin 2 as input for the push button
+                pinMode(2, INPUT);
+                // Configure pin 13 as output for the LED
+               pinMode(13, OUTPUT);
+                // Start serial communication at 9600 baud rate for debugging purposes
+                Serial.begin(9600);
+              }
+              void loop() {
+               // Read the state of the push button (HIGH or LOW) and store it in the variable
+                pushButtonState = digitalRead(2);
+                // Check if the push button is pressed (if its state is HIGH)
+                if (pushButtonState == HIGH) {
+                 // Turn on the LED
+                 digitalWrite(13, HIGH);
+                 // Print the button state to the serial monitor (1 when pressed)
+                 Serial.println(pushButtonState);
+              } else {
+                 // Turn off the LED
+                  digitalWrite(13, LOW);
+                  // Print the button state to the serial monitor (0 when not pressed)
+                  Serial.println(pushButtonState);
                 }
-                
-                void loop() {
-                  buttonState = digitalRead(buttonPin);
-                  if (buttonState == HIGH) {
-                    ledState = (ledState + 1) % 3;
-                    switch (ledState) {
-                      case 0:
-                        digitalWrite(ledPins[0], HIGH);
-                        digitalWrite(ledPins[1], LOW);
-                        digitalWrite(ledPins[2], LOW);
-                        break;
-                      case 1:
-                        digitalWrite(ledPins[0], LOW);
-                        digitalWrite(ledPins[1], HIGH);
-                        digitalWrite(ledPins[2], LOW);
-                        break;
-                      case 2:
-                        digitalWrite(ledPins[0], LOW);
-                        digitalWrite(ledPins[1], LOW);
-                        digitalWrite(ledPins[2], HIGH);
-                        break;
-                    }
-                    Serial.println("Traffic light state changed");
-                  }
-                  delay(100);
-                }
+              }
             </code>
             </pre>
-        </div>
     </div>
+  </div>
 
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 5: Interface Bluetooth HC-05 on Arduino Uno
-        </div>
-        <div class="content">
-            <pre><code>
-                #include <SoftwareSerial.h>
-                    SoftwareSerial bluetooth(2, 3);
-                    
-                    void setup() {
-                      Serial.begin(9600);
-                      bluetooth.begin(9600);
-                    }
-                    
-                    void loop() {
-                      if (bluetooth.available()) {
-                        char c = bluetooth.read();
-                        if (c == '1') {
-                          digitalWrite(13, HIGH);
-                          Serial.println("LED turned on");
-                        } else if (c == '0') {
-                          digitalWrite(13, LOW);
-                          Serial.println("LED turned off");
-                        }
-                      }
-                      delay(100);
-                    }
-            </code>
-            </pre>
-        </div>
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 6: Arduino program to implement Interactive
+      Traffic System using Push Button.
     </div>
-
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 6: Interface RFID reader on Arduino UNO
-        </div>
-        <div class="content">
-            <pre><code>#include <SPI.h>
-                #include <MFRC522.h>
-                #define RST_PIN 9
-                #define SS_PIN 10
-                MFRC522 mfrc522(SS_PIN, RST_PIN);
-                
-                void setup() {
-                  Serial.begin(9600);
-                  SPI.begin();
-                  mfrc522.PCD_Init();
+    <div class="content">
+      <pre><code>
+              const int redLED = 13;
+              const int yellowLED = 12;
+              const int greenLED = 11;
+              const int buttonPin = 2;
+              // Variable to store button state
+              int buttonState = 0;
+              // Variable to track traffic light state
+              int trafficState = 0;
+              void setup() {
+                // Set LED pins as OUTPUT
+                pinMode(redLED, OUTPUT);
+                pinMode(yellowLED, OUTPUT);
+                pinMode(greenLED, OUTPUT);
+                // Set button pin as INPUT
+                pinMode(buttonPin, INPUT);
+                // Initialize serial communication for debugging
+                Serial.begin(9600);
+                // Initialize with red light ON
+                digitalWrite(redLED, HIGH);
+                digitalWrite(yellowLED, LOW);
+                digitalWrite(greenLED, LOW);
+              }
+              void loop() {
+               // Read the state of the push button
+                buttonState = digitalRead(buttonPin);
+                // If button is pressed, move to the next traffic state
+              if (buttonState == HIGH) {
+                delay(300); // Debouncing delay
+                trafficState++;
+                if (trafficState > 2) {
+                  trafficState = 0; // Reset traffic state after 3 stages
                 }
-                
-                void loop() {
-                  if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
-                    Serial.print("UID: ");
-                    for (byte i = 0; i < mfrc522.uid.size; i++) {
-                      Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-                      Serial.print(mfrc522.uid.uidByte[i], HEX);
-                    }
-                    Serial.println();
-                    Serial.println("Access granted");
+                // Control LEDs based on traffic light state
+                switch (trafficState) {
+                  case 0: // Red light ON
+                  digitalWrite(redLED, HIGH);
+                  digitalWrite(yellowLED, LOW);
+                  digitalWrite(greenLED, LOW);
+                  Serial.println("Red Light");
+                  break;
+
+                  case 1: // Green light ON
+                    digitalWrite(redLED, LOW);
+                    digitalWrite(yellowLED, LOW);
+                    digitalWrite(greenLED, HIGH);
+                    Serial.println("Green Light");
+                    break;
+
+                  case 2: // Yellow light ON
+                    digitalWrite(redLED, LOW);
+                    digitalWrite(yellowLED, HIGH);
+                    digitalWrite(greenLED, LOW);
+                    Serial.println("Yellow Light");
+                    break;
                   }
-                  delay(100);
+                  delay(1000); // Wait 1 second between state transitions
                 }
+              }
             </code>
             </pre>
-        </div>
     </div>
+  </div>
 
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 7: Interface Servo Motor and Potentiometer on Arduino Uno
-        </div>
-        <div class="content">
-            <pre><code>
-                #include <Servo.h>
-                Servo servo;
-                const int potPin = A0;
-                
-                void setup() {
-                  servo.attach(9);
-                }
-                
-                void loop() {
-                  int potValue = analogRead(potPin);
-                  int angle = map(potValue, 0, 1023, 0, 180);
-                  servo.write(angle);
-                  delay(15);
-                }</code>
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 7: Arduino program to implement i)To control Servo motor using
+      potentiometer and..
+    </div>
+    <div class="content">
+      <p>To control Servo motor without using potentiometer:</p>
+      <pre><code>
+        #include < Servo.h> // Include the Servo library
+          Servo myservo; // Create servo object to control a servo
+          void setup() {
+            myservo.attach(9); // Attach the servo to digital pin 9
+          }
+          void loop() {
+            myservo.write(0); // Move the servo to 0 degrees
+            delay(1000); // Wait for 1 second
+            myservo.write(90); // Move the servo to 90 degrees
+            delay(1000); // Wait for 1 second
+            myservo.write(180); // Move the servo to 180 degrees
+            delay(1000); // Wait for 1 second
+          }</code>
             </pre>
-        </div>
     </div>
+  </div>
 
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 8: Interface an LED on Raspberry Pi
-        </div>
-        <div class="content">
-            <pre><code>
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 8: Interface an LED on Raspberry Pi
+    </div>
+    <div class="content">
+      <pre><code>
                 import RPi.GPIO as GPIO
                 import time
                 
@@ -252,145 +307,379 @@
                     GPIO.output(17, GPIO.LOW)
                     time.sleep(3)</code>
             </pre>
-        </div>
-    </div>
-
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 9: Interface Pi Camera Module on Raspberry Pi
-        </div>
-        <div class="content">
+            <p>Control Servo Motor Using Potentiometer:</p>
             <pre><code>
-                import picamera
-                import time
-                
-                camera = picamera.PiCamera()
-                camera.capture('image.jpg')
-                camera.close()
+              #include < Servo.h> // Include the Servo library
+                Servo myservo; // Create servo object to control a servo
+                int potpin = A0; // Analog pin for potentiometer
+                int val; // Variable to read the value from the analog pin
+                void setup() {
+                  myservo.attach(9); // Attach the servo to digital pin 9
+                }
+                void loop() {
+                  val = analogRead(potpin); // Read the potentiometer value (0 to 1023)
+                  val = map(val, 0, 1023, 0, 180); // Scale it to use it with the servo (0 to 180 degrees)
+                  myservo.write(val); // Set the servo position based on the potentiometer input
+                  delay(15); // Wait for the servo to reach the position
+                }
+            </code></pre>
+    </div>
+  </div>
+
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 10: Raspberry pi program to Blink an LED using python.
+    </div>
+    <div class="content">
+      <pre><code>
+        import RPi.GPIO as GPIO
+        import time
+        # Set up GPIO mode
+        GPIO.setmode(GPIO.BCM)
+        # Define the GPIO pin number where the LED is connected
+        LED_PIN = 18 # Use GPIO 18 (Pin 12 on the board)
+        # Set up the LED pin as an output
+        GPIO.setup(LED_PIN, GPIO.OUT)
+        # Blink the LED a fixed number of times
+        GPIO.output(LED_PIN, GPIO.HIGH) # Turn on LED
+        time.sleep(1) # Wait for 1 second
+        GPIO.output(LED_PIN, GPIO.LOW) # Turn off LED
+        time.sleep(1) # Wait for 1 second
+        GPIO.output(LED_PIN, GPIO.HIGH) # Turn on LED
+        time.sleep(1) # Wait for 1 second
+        GPIO.output(LED_PIN, GPIO.LOW) # Turn off LED
+        # Clean up GPIO settings
+        GPIO.cleanup()
             </code>
             </pre>
-        </div>
     </div>
+  </div>
 
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 10: Interface DHT22 sensor on Raspberry Pi
-        </div>
-        <div class="content">
-            <pre><code>import Adafruit_DHT
-                import time
-                
-                sensor = Adafruit_DHT.DHT22
-                pin = 17
-                
-                while True:
-                    humidity, temperature = Adafruit_DHT.read(sensor, pin)
-                    print('Temp={0:0.1f}*C Humidity ={1:0.1f}%'.format(temperature, humidity))
-                    time.sleep(1)
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 10: Raspberry pi program to Blink an odd and even LED using python.
+    </div>
+    <div class="content">
+      <pre><code>import RPi.GPIO as GPIO
+        import time
+        # Pin configuration for odd and even LEDs
+        odd_pins = [11, 13, 15] # Replace with your odd numbered LED pins
+        even_pins = [12, 16, 18] # Replace with your even numbered LED pins
+        # Setup
+        GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
+        GPIO.setup(odd_pins, GPIO.OUT)
+        GPIO.setup(even_pins, GPIO.OUT)
+        def blink_leds(led_pins, duration):
+        for pin in led_pins:
+        GPIO.output(pin, GPIO.HIGH) # Turn on the LED
+        time.sleep(duration)
+        for pin in led_pins:
+        GPIO.output(pin, GPIO.LOW) # Turn off the LED
+        # Blink odd LEDs once
+        blink_leds(odd_pins, 1) # Blink for 1 second
+        # Blink even LEDs once
+        blink_leds(even_pins, 1) # Blink for 1 second
+        # Clean up GPIO pins (essential to avoid issues)
+        GPIO.cleanup()
                 </code>
             </pre>
-        </div>
     </div>
+  </div>
 
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 11: Interface Ultra Sonic HC-SR04 on Raspberry Pi
-        </div>
-        <div class="content">
-            <pre><code>
-                import RPi.GPIO as GPIO
-                import time
-                
-                GPIO.setmode(GPIO.BCM)
-                TRIG = 23
-                ECHO = 24
-                
-                GPIO.setup(TRIG, GPIO.OUT)
-                GPIO.setup(ECHO, GPIO.IN)
-                
-                while True:
-                    GPIO.output(TRIG, True)
-                    time.sleep(0.00001)
-                    GPIO.output(TRIG, False)
-                    start = time.time()
-                    while GPIO.input(ECHO) == 0:
-                        start = time.time()
-                    while GPIO.input(ECHO) == 1:
-                        end = time.time()
-                    distance = (end - start) * 17150
-                    print('Distance: {0:0.1f}cm'.format(distance))
-                    time.sleep(1)</code>
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 11: Arduino program to implement IR sensor and PIR sensor for motion detection.
+    </div>
+    <div class="content">
+      <p>Using IR sensor:</p>
+      <pre><code>
+        int irSensorPin = 8; // IR sensor connected to digital pin 8
+        int ledPin = 13; // LED connected to digital pin 13
+        void setup() {
+         pinMode(irSensorPin, INPUT);
+         pinMode(ledPin, OUTPUT);
+         Serial.begin(9600); // Initialize serial communication
+        }
+        void loop() {
+         int irValue = digitalRead(irSensorPin); // Read IR sensor value
+         if (irValue == LOW) { // Object detected (IR sensor output goes LOW)
+            digitalWrite(ledPin, HIGH); // Turn on LED
+           Serial.println("Motion Detected!");
+        } else {
+          digitalWrite(ledPin, LOW); // Turn off LED
+        }
+          delay(200); // Small delay to avoid multiple triggers
+        }</code>
             </pre>
-        </div>
-    </div>
-
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 12: Implement a Python program to control an LED using Switch
-        </div>
-        <div class="content">
+            <p>Using PIR sensor:</p>
             <pre><code>
-                import RPi.GPIO as GPIO
-                import time
-                
-                GPIO.setmode(GPIO.BCM)
-                GPIO.setup(17, GPIO.OUT)
-                GPIO.setup(23, GPIO.IN)
-                
-                while True:
-                    if GPIO.input(23) == True:
-                        GPIO.output(17, GPIO.HIGH)
-                    else:
-                        GPIO.output(17, GPIO.LOW)
-                    time.sleep(0.1)</code>
-            </pre>
-        </div>
+              int pirSensorPin = 7; // PIR sensor connected to digital pin 7
+              int ledPin = 13; // LED connected to digital pin 13
+              void setup() {
+                pinMode(pirSensorPin, INPUT); // Set PIR sensor pin as input
+                pinMode(ledPin, OUTPUT); // Set LED pin as output
+                Serial.begin(9600); // Initialize serial communication for debugging
+                Serial.println("PIR Motion Detector Initialized");
+              }
+              void loop() {
+                int pirValue = digitalRead(pirSensorPin); // Read PIR sensor value
+                if (pirValue == HIGH) { // Motion detected (PIR sensor output is HIGH)
+                  digitalWrite(ledPin, HIGH); // Turn on LED
+                  Serial.println("Motion Detected!"); // Print message to serial monitor
+                } else {
+                  digitalWrite(ledPin, LOW); // Turn off LED
+                }
+                delay(200); // Small delay to avoid multiple triggers
+                }
+            </code></pre>
     </div>
+  </div>
 
-    <div class="program">
-        <div class="header" onclick="toggleProgram(this)">
-            <span class="arrow">▶</span> Program 13: Demonstrate the use of ESP8266 for the temperature sensor in a
-            Thingspeak cloud
-        </div>
-        <div class="content">
-            <pre><code>#include <ESP8266WiFi.h>
-                #include <ESP8266HTTPClient.h>
-                
-                const char* ssid = "your_ssid";
-                const char* password = "your_password";
-                const char* thingspeak_api_key = "your_api_key";
-                
-                WiFiClient client;
-                HTTPClient http;
-                
-                void setup() {
-                  Serial.begin(115200);
-                  WiFi.begin(ssid, password);
-                  while (WiFi.status() != WL_CONNECTED) {
-                    delay(1000);
-                    Serial.println("Connecting to WiFi...");
-                  }
-                  Serial.println("Connected to WiFi");
-                }
-                
-                void loop() {
-                  int temperature = analogRead(A0);
-                  temperature = map(temperature, 0, 1023, 0, 100);
-                  http.begin(client, "http://api.thingspeak.com/update?api_key=" + String(thingspeak_api_key) + "&field1=" + String(temperature));
-                  int httpCode = http.GET();
-                  if (httpCode == HTTP_CODE_OK) {
-                    String response = http.getString();
-                    Serial.println(response);
-                  } else {
-                    Serial.println("Error sending data to Thingspeak");
-                  }
-                  http.end();
-                  delay(10000);
-                }
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 13: Arduino Program to Control an LED using Bluetooth.
+    </div>
+    <div class="content">
+      <pre><code>
+        const int ledPin = 8; // LED connected to pin 8
+        char data = 0; // Variable to store received data
+        void setup() {
+         pinMode(ledPin, OUTPUT); // Set the LED pin as output
+         Serial.begin(9600); // Initialize Bluetooth serial communication
+        }
+        void loop() {
+         // Check if data is available from Bluetooth
+         if (Serial.available() > 0) {
+           data = Serial.read(); // Read the incoming data
+           // Check for specific commands to control the LED
+           if (data == '1') {
+             digitalWrite(ledPin, HIGH); // Turn LED ON
+             Serial.println("LED ON");
+             } else if (data == '0') {
+               digitalWrite(ledPin, LOW); // Turn LED OFF
+               Serial.println("LED OFF");
+             }
+           }
+        }</code>
+            </pre>
+    </div>
+  </div>
+
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 16: Demonstrate Arduino program to Measure the distance using Ultra Sonic
+      sensor in cm
+    </div>
+    <div class="content">
+      <pre><code>const int TRIG_PIN = 9; // Trigger pin
+        const int ECHO_PIN = 10; // Echo pin
+        void setup() {
+          // Start serial communication
+          Serial.begin(9600);
+          // Set the trigger and echo pins
+          pinMode(TRIG_PIN, OUTPUT);
+         pinMode(ECHO_PIN, INPUT);
+        }
+        void loop() {
+          // Variable to store the distance in centimeters
+          long duration;
+           float distance_cm;
+          // Send a 10μs pulse to trigger the ultrasonic module
+          digitalWrite(TRIG_PIN, LOW); // Ensure the trigger is low initially
+          delayMicroseconds(2); // Wait for a brief moment
+          digitalWrite(TRIG_PIN, HIGH); // Send the pulse
+          delayMicroseconds(10); // Keep the pulse high for 10μs
+          digitalWrite(TRIG_PIN, LOW); // Stop the pulse
+          // Measure the duration of the pulse on the Echo pin
+          duration = pulseIn(ECHO_PIN, HIGH); // Measure the time for the pulse to return
+          // Calculate the distance (speed of sound is 34300 cm/s)
+          distance_cm = (duration * 0.0343) / 2; // Divide by 2 for round-trip time
+          // Print the distance in centimeters to the serial monitor
+          Serial.print("Distance: ");
+          Serial.print(distance_cm);
+          Serial.println(" cm");
+          // Wait for 1 second before taking the next measurement
+          delay(1000);
+        }
             </code>
             </pre>
-        </div>
     </div>
+  </div>
+
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 16: Demonstrate Raspberry pi program to Measure the distance using Ultra
+      Sonic sensor in cm.
+    </div>
+    <div class="content">
+      <pre><code>import RPi.GPIO as GPIO
+        import time
+        # Pin configuration
+        TRIG = 23 # GPIO pin for Trigger
+        ECHO = 24 # GPIO pin for Echo
+        # GPIO setup
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(TRIG, GPIO.OUT)
+        GPIO.setup(ECHO, GPIO.IN)
+        def measure_distance():
+        # Send a 10μs pulse to trigger the ultrasonic module
+        GPIO.output(TRIG, True)
+        time.sleep(0.00001)
+        GPIO.output(TRIG, False)
+        # Record the start time when Echo goes HIGH
+        while GPIO.input(ECHO) == 0:
+        start_time = time.time()
+        # Record the end time when Echo goes LOW
+        while GPIO.input(ECHO) == 1:
+        end_time = time.time()
+        # Calculate the pulse duration
+        elapsed_time = end_time - start_time
+        # Distance in centimeters
+        distance_cm = (elapsed_time * 34300) / 2
+        return distance_cm
+        # Infinite loop to measure distance
+        try:
+        while True:
+          # Get distance measurement in centimeters
+          distance_cm = measure_distance()
+          # Print result without using string formatting
+          print("Distance: " + str(round(distance_cm, 2)) + " cm")
+          # Delay between measurements
+          time.sleep(1)
+        finally:
+          # Clean up GPIO settings
+        GPIO.cleanup()
+            </code>
+            </pre>
+    </div>
+  </div>
+
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 18: Implementation of Garage Spot Light(Smart Car parking) an application
+      of UltraSonic HC-SR 04 sensor..
+      sensor in cm
+    </div>
+    <div class="content">
+      <pre><code>import RPi.GPIO as GPIO
+        import time
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        TRIG = 4
+        ECHO = 18
+        GREEN = 17
+        YELLOW = 27
+        RED = 22
+        GPIO.setup(TRIG,GPIO.OUT)
+        GPIO.setup(ECHO,GPIO.IN)
+        GPIO.setup(GREEN,GPIO.OUT)
+        GPIO.setup(YELLOW,GPIO.OUT)
+        GPIO.setup(RED,GPIO.OUT)
+        def green_light():
+        GPIO.output(GREEN, GPIO.HIGH)
+        GPIO.output(YELLOW, GPIO.LOW)
+        GPIO.output(RED, GPIO.LOW)
+        def yellow_light():
+        GPIO.output(GREEN, GPIO.LOW)
+        GPIO.output(YELLOW, GPIO.HIGH)
+        GPIO.output(RED, GPIO.LOW)
+        def red_light():
+        GPIO.output(GREEN, GPIO.LOW)
+        GPIO.output(YELLOW, GPIO.LOW)
+        GPIO.output(RED, GPIO.HIGH)
+        def get_distance():
+        GPIO.output(TRIG, True)
+        time.sleep(0.00001)
+        GPIO.output(TRIG, False)
+        while GPIO.input(ECHO) == False:
+        start = time.time()
+        while GPIO.input(ECHO) == True:
+        end = time.time()
+        sig_time = end-start
+        #CM:
+        distance = sig_time / 0.000058
+        #inches:
+        #distance = sig_time / 0.000148
+        #print('Distance: {} centimeters'.format(distance))
+        return distance
+        while True:
+        distance = get_distance(
+        time.sleep(0.05)
+        print(distance)
+        if distance >= 30:
+        green_light()
+        elif 30 > distance > 10:
+        yellow_light()
+        elif distance <= 10
+        red_light()
+            </code>
+            </pre>
+    </div>
+  </div>
+
+  <div class="program">
+    <div class="header" onclick="toggleProgram(this)">
+      <span class="arrow">▶</span> Program 19: Security Access using MFRC522 RFID Reader with Arduino
+      sensor in cm
+    </div>
+    <div class="content">
+      <pre><code>#include <SPI.h>
+        #include <MFRC522.h>
+        #define SS_PIN 10
+        #define RST_PIN 9
+        MFRC522 mfrc522(SS_PIN, RST_PIN); // Create MFRC522 instance.
+        void setup()
+        {
+         Serial.begin(9600); // Initiate a serial communication
+         SPI.begin(); // Initiate SPI bus
+         mfrc522.PCD_Init(); // Initiate MFRC522
+         Serial.println("Approximate your card to the reader...");
+         Serial.println();
+        }
+        
+        void loop()
+        {
+          // Look for new cards
+          if ( ! mfrc522.PICC_IsNewCardPresent())
+          {
+            return;
+           }
+           // Select one of the cards
+            if ( ! mfrc522.PICC_ReadCardSerial())
+            {
+              return;
+             }
+            //Show UID on serial monitor
+            Serial.print("UID tag :");
+            String content= "";
+            byte letter;
+            for (byte i = 0; i < mfrc522.uid.size; i++)
+            {
+             Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
+             Serial.print(mfrc522.uid.uidByte[i], HEX);
+             content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
+             content.concat(String(mfrc522.uid.uidByte[i], HEX));
+            }
+           Serial.println();
+           Serial.print("Message : ");
+           content.toUpperCase();
+            if (content.substring(1) == "BD 31 15 2B")
+             {
+            Serial.println("Authorized access");
+            Serial.println();
+            delay(3000);
+            } else {
+              Serial.println(" Access denied");
+            delay(3000);
+          }
+        }
+            </code>
+            </pre>
+    </div>
+  </div>
+  <center>
+    good luck from JP and MN
+  </center>
 </body>
 
 </html>
